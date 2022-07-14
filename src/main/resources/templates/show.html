@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <style>
+        table th, table td {
+            padding: 10px;
+        }
+
+        .fstyle {
+            font-style: normal;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h2>User</h2>
+<div>
+    <table border="1">
+        <thread>
+            <tr>
+                <th><h2>ID</h2></th>
+                <th><h2>Name</h2></th>
+                <th><h2>Surname</h2></th>
+                <th><h2>Age</h2></th>
+                <th><h2>E-mail</h2></th>
+            </tr>
+        </thread>
+        <tbody>
+        <tr>
+            <td th:text="${user.getId()}">Id</td>
+            <td th:text="${user.getUsername()}">Name</td>
+            <td th:text="${user.getSurname()}">Surname</td>
+            <td th:text="${user.getAge()}" class="fstyle">Age</td>
+            <td th:text="${user.getEmail()}">E-mail</td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <form th:action="@{/users}">
+        <button type="submit">back to list</button>
+    </form>
+</div>
+</body>
+</html>

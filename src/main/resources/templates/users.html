@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+    <style>
+        table th, table td {
+            padding: 10px;
+        }
+
+        .fstyle {
+            font-style: normal;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .buttons-pl {
+            margin-left: 10px;
+            border: blue solid 1px;
+            text-align: center;
+            padding-left: 3px;
+            padding-right: 3px;
+        }
+
+        .df {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+<h2>All users</h2>
+<div>
+    <table border="1">
+        <thread>
+            <tr>
+                <th><h2>ID</h2></th>
+                <th><h2>Name</h2></th>
+                <th><h2>Surname</h2></th>
+                <th><h2>Age</h2></th>
+                <th><h2>E-mail</h2></th>
+                <th><h2>Buttons!</h2></th>
+            </tr>
+        </thread>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">Id</td>
+            <td th:text="${user.getUsername()}">Name</td>
+            <td th:text="${user.getSurname()}">Surname</td>
+            <td th:text="${user.getAge()}" class="fstyle">Age</td>
+            <td th:text="${user.getEmail()}">email</td>
+            <td class="df">
+                <a th:href="@{users/edit/{id}(id=${user.id})}" class="buttons-pl fstyle">Edit</a>
+                <a th:href="@{users/delete/{id}(id=${user.id})}" class="buttons-pl fstyle">Delete</a>
+                <a th:href="@{users/show/{id}(id=${user.id})}" class="buttons-pl fstyle">Show user</a>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <form th:action="@{addUser}">
+        <button type="submit">Add new user</button>
+    </form>
+</div>
+
+</body>
+</html>
