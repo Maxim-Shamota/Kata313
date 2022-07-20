@@ -16,13 +16,15 @@
     </style>
 </head>
 <body>
-<h2>Edit user</h2>
+<h2>Edit <span th:text="${user.getUsername()}"></span></h2>
 <div>
 
     <table border="1">
         <thread>
             <tr>
-                <th><h2>ID</h2></th>
+                <th><h2>Login</h2></th>
+                <th><h2>Password</h2></th>
+                <th><h2>Roles</h2></th>
                 <th><h2>Name</h2></th>
                 <th><h2>Surname</h2></th>
                 <th><h2>Age</h2></th>
@@ -32,8 +34,15 @@
         </thread>
         <tbody>
         <tr>
-            <form th:action="@{/users/edit}" th:object="${user}" method="post">
-                <td><input readonly type="number" name="id" th:value="${user.getId()}"></td>
+            <form th:action="@{/admin/edit}" th:object="${user}" method="post">
+                <input type="hidden" name="id" th:value="${user.getId()}">
+                <td><input type="text" name="login" th:id="login" th:value="${user.getLogin()}"></td>
+                <td><input type="text" name="password" th:id="password" th:value="${user.getPassword()}"></td>
+                <td>
+                    <label th:each="role : ${roles}">
+                        <input type="checkbox" th:field="*{roles}" th:value="${role.id}" th:text="${role.userRole}"/>
+                    </label>
+                </td>
                 <td><input type="text" name="username" th:id="username" th:value="${user.getUsername()}"></td>
                 <td><input type="text" name="surname" th:id="surname" th:value="${user.getSurname()}"></td>
                 <td><input type="text" name="age" th:id="age" th:value="${user.getAge()}"></td>
@@ -47,8 +56,12 @@
     </table>
 
     <br/>
-    <form th:action="@{/users}">
+    <form th:action="@{/admin}">
         <button type="submit">back to list</button>
+    </form>
+    <br>
+    <form th:method="post" th:action="@{/logout}">
+        <button type="submit">Logout</button>
     </form>
 </div>
 </body>

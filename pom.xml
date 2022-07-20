@@ -9,12 +9,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>site.shamota</groupId>
-    <artifactId>kata311</artifactId>
+    <artifactId>kata312</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>kata311</name>
-    <description>kata311</description>
+    <name>kata312</name>
+    <description>kata312</description>
     <properties>
-        <java.version>15</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -40,9 +40,8 @@
             <scope>true</scope>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.29</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
     </dependencies>
