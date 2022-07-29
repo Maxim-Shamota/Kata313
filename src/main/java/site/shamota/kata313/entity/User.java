@@ -1,4 +1,4 @@
-package site.shamota.kata312.entity;
+package site.shamota.kata313.entity;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,9 +16,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(schema = "security", name = "users")
-public class User
-        implements UserDetails
-{
+public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -36,8 +35,8 @@ public class User
     @Column
     private String email;
 
-    @Column(unique = true)
-    private String login;
+//    @Column
+//    private String login;
 
     @Column
     private String password;

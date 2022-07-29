@@ -1,4 +1,4 @@
-package site.shamota.kata312.config.handler;
+package site.shamota.kata313.config.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -19,11 +19,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                                         Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ADMIN")) {
-            httpServletResponse.sendRedirect("/admin");
+            httpServletResponse.sendRedirect("/api/admin");
         } else if (roles.contains("USER")) {
-            httpServletResponse.sendRedirect("/user");
+            httpServletResponse.sendRedirect("/api/user");
         } else {
-            httpServletResponse.sendRedirect("/login");
+            httpServletResponse.sendRedirect("/api/login");
         }
     }
 }

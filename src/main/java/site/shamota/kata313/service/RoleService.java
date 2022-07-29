@@ -1,9 +1,9 @@
-package site.shamota.kata312.service;
+package site.shamota.kata313.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import site.shamota.kata312.entity.Role;
-import site.shamota.kata312.repository.RoleRepository;
+import site.shamota.kata313.entity.Role;
+import site.shamota.kata313.repository.RoleRepository;
 
 import java.util.List;
 

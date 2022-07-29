@@ -1,4 +1,4 @@
-package site.shamota.kata312.config;
+package site.shamota.kata313.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import site.shamota.kata312.config.handler.LoginSuccessHandler;
-import site.shamota.kata312.service.UserService;
+import site.shamota.kata313.config.handler.LoginSuccessHandler;
+import site.shamota.kata313.service.UserService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,15 +26,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").authenticated()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/api/login").anonymous()
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .successHandler(loginSuccessHandler)
+                .loginProcessingUrl("/login")
+                .usernameParameter("j_email")
+                .passwordParameter("j_password")
+                .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/login");
+                .logout()
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login");
     }
 
     @Bean

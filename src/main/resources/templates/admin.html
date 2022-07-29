@@ -1,78 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http:\\thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>Admin</title>
-    <style>
-        table th, table td {
-            padding: 10px;
-        }
-
-        .fstyle {
-            font-style: normal;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .buttons-pl {
-            margin-left: 10px;
-            border: black solid 1px;
-            text-align: center;
-            padding-left: 3px;
-            padding-right: 3px;
-        }
-
-        .df {
-            display: flex;
-        }
-    </style>
 </head>
+
 <body>
-<h2>All users</h2>
-<h3>Welcome <span th:text="${user.getUsername()}"></span></h3>
-<div>
-    <table border="1">
-        <thread>
-            <tr>
-                <th><h2>ID</h2></th>
-                <th><h2>Login</h2></th>
-                <th><h2>Role</h2></th>
-                <th><h2>Name</h2></th>
-                <th><h2>Surname</h2></th>
-                <th><h2>Age</h2></th>
-                <th><h2>E-mail</h2></th>
-                <th><h2>Buttons!</h2></th>
-            </tr>
-        </thread>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.id}" class="fstyle">Id</td>
-            <td th:text="${user.getLogin()}">Login</td>
-            <td class="fstyle">
-                <label th:each="role : ${user.getRoles()}">
-                    <label th:text="${role.getUserRole()}"></label>
-                </label>
-            </td>
-            <td th:text="${user.getUsername()}">Name</td>
-            <td th:text="${user.getSurname()}">Surname</td>
-            <td th:text="${user.getAge()}" class="fstyle">Age</td>
-            <td th:text="${user.getEmail()}">email</td>
-            <td class="df">
-                <a th:href="@{admin/edit/{id}(id=${user.id})}" class="buttons-pl fstyle">Edit</a>
-                <a th:href="@{admin/delete/{id}(id=${user.id})}" class="buttons-pl fstyle">Delete</a>
-                <a th:href="@{user/{id}(id=${user.id})}" class="buttons-pl fstyle">Show user</a>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <form th:action="@{admin/addUser}">
-        <button type="submit">Add new user</button>
-    </form>
-    <br>
-    <form th:method="post" th:action="@{/logout}">
-        <button type="submit">Logout</button>
-    </form>
+
+<nav class="nav navbar fixed-top navbar-dark bg-dark text-white">
+    <div class="nav-item">
+        <div>
+            <span sec:authentication="name" class="font-weight-bold"></span> with roles:
+            <span th:each="grantedAuthority : ${#authentication.principal.getAuthorities()}">
+                <span th:text="${grantedAuthority.getAuthority()}"></span>
+            </span>
+        </div>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link text-muted" th:href="@{/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="row min-vh-100" style="margin-top: 100px">
+
+    <ul class="col-2 nav flex-column nav-pills" aria-orientation="vertical">
+
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/admin}">Admin</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/user}">User</a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content col-10">
+
+        <div class="tab-pane fade show active" id="admin-panel">
+            <ul class="nav nav-tabs">
+                <!-- Первая вкладка (активная) -->
+                <li class="nav-item">
+                    <a class="nav-link active" id="usersTableNav" data-toggle="tab" onclick="showAll()">Users table</a>
+                </li>
+                <!-- Вторая вкладка -->
+                <li class="nav-item">
+                    <a class="nav-link" id="newUserNav" data-toggle="tab" onclick="newUser()">New User</a>
+                </li>
+            </ul>
+
+            <div class="card" id="basicSpace">
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
+<!--MODAL WINDOW-->
+<div id="modalWindow"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+<script src="../static/js/main.js" th:src="@{js/main.js}"></script>
 </body>
 </html>
