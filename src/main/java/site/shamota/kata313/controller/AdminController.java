@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/api")
 public class AdminController {
 
-    @GetMapping()
+    @GetMapping("/admin")
     public String showUsersForAdmin() {
         return "admin";
     }

@@ -11,7 +11,7 @@ import site.shamota.kata313.service.UserService;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
-@RequestMapping()
+@RequestMapping("/api")
 public class RestController {
 
     UserService userService;
@@ -23,16 +23,16 @@ public class RestController {
         this.roleService = roleService;
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public ResponseEntity<List<User>> showAllUsers() {
         List<User> userList = userService.findAll();
-        return new ResponseEntity<>(userList, HttpStatus.OK);
+        return ResponseEntity.ok().body(userList);
     }
 
     @PostMapping("/save")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.saveUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.ok().body(user);
     }
 
 
@@ -58,6 +58,6 @@ public class RestController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         userService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 }

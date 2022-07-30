@@ -12,7 +12,7 @@ import site.shamota.kata313.service.UserService;
 
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
@@ -24,7 +24,7 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @GetMapping()
+    @GetMapping("/user")
     public String showUserInfo(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user", userService.findByEmail(auth.getName()));
